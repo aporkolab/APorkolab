@@ -23,4 +23,4 @@ I build stable, maintainable systems and refactor complex legacy codebases. My b
 
 ---
 
-[LinkedIn](https://linkedin.com/in/adamporkolab) • [Bento](https://bento.me/adamporkolab) • [Medium](https://medium.com/@aporkolabsdevhackery)
+[LinkedIn](https://linkedin.com/in/adamporkolab) • [Page](https://www.aporkolab.com) • [Medium](https://medium.com/@aporkolabsdevhackery)
