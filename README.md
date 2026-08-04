@@ -86,7 +86,6 @@ The engineering and the fiction feed each other more than either side likes to a
 <!-- ═══════════════════ STATS (decoration, kept last on purpose) ═══════════════════ -->
 
 <p align="center">
-  <img height="165" src="./profile/stats.svg" alt="GitHub stats" />
   <img height="165" src="./profile/top-langs.svg" alt="Top languages" />
 </p>
 
