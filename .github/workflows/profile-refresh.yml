@@ -2,9 +2,25 @@
 # A profil-repóba megy: github.com/APorkolab/APorkolab
 # Kiváltja a korábbi snake.yml + grs.yml párost, azokat töröld.
 #
-# IDŐZÍTÉS: a GitHub cron MINDIG UTC, nincs benne nyári időszámítás.
+# ─── EGYSZERI SETUP: GRS_TOKEN secret ────────────────────────────────
+# A stats kártyák NEM működnek az alapértelmezett GITHUB_TOKEN-nel:
+# az egy repo-szintű installation token, és a user-szintű GraphQL
+# lekérdezésre "Resource not accessible by integration" hibát ad.
+#
+#   1. Settings -> Developer settings -> Personal access tokens
+#      -> Tokens (classic) -> Generate new token (classic)
+#   2. Scope: read:user        (a repo scope CSAK akkor kell, ha a
+#                               privát repóid statisztikáit is akarod)
+#   3. Expiration: adj neki lejáratot, és tedd naptárba a rotációt
+#   4. A repóban: Settings -> Secrets and variables -> Actions
+#      -> New repository secret, név: GRS_TOKEN
+#
+# A token SOHA nem kerül ebbe a fájlba és a READMEbe, csak secretként.
+#
+# ─── IDŐZÍTÉS ────────────────────────────────────────────────────────
+# A GitHub cron MINDIG UTC, nincs benne nyári időszámítás.
 #   23 4 * * 1  =  hétfő 06:23 (CEST, nyár)  /  hétfő 05:23 (CET, tél)
-# A 23. perc szándékos: az egész órák a GitHub megosztott runner-flottáján
+# A 23. perc szándékos: az egész órák a megosztott runner-flottán
 # torlódnak, az offbeat perc hamarabb indul el.
 
 name: Profile refresh
@@ -27,13 +43,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Verify token secret is present
+        run: |
+          if [ -z "${{ secrets.GRS_TOKEN }}" ]; then
+            echo "::error::GRS_TOKEN secret hianyzik. Ld. a fajl tetejen a setup lepeseket."
+            exit 1
+          fi
+
       - name: Generate stats card
         uses: readme-tools/github-readme-stats-action@v1
         with:
           card: stats
           options: username=${{ github.repository_owner }}&show_icons=true&hide_border=true&bg_color=0D1117&title_color=C9A227&icon_color=8C1C2F&text_color=EDE3D2
           path: profile/stats.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GRS_TOKEN }}
           fail_on_error: true
 
       - name: Generate top languages card
@@ -42,8 +65,15 @@ jobs:
           card: top-langs
           options: username=${{ github.repository_owner }}&layout=compact&langs_count=8&hide_border=true&bg_color=0D1117&title_color=C9A227&text_color=EDE3D2
           path: profile/top-langs.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GRS_TOKEN }}
           fail_on_error: true
+
+      - name: Reject error cards before committing
+        run: |
+          if grep -l "Something went wrong" profile/*.svg 2>/dev/null; then
+            echo "::error::Hibakartya keletkezett, nem commitolom."
+            exit 1
+          fi
 
       - name: Commit cards
         run: |
@@ -54,6 +84,7 @@ jobs:
           git push
 
   # ── Kígyó: az output branchre publikál, a main-hez nem nyúl ──
+  # Ez a GITHUB_TOKEN-nel működik, itt nincs teendőd.
   snake:
     runs-on: ubuntu-latest
     permissions:
