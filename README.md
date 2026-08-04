@@ -86,8 +86,8 @@ The engineering and the fiction feed each other more than either side likes to a
 <!-- ═══════════════════ STATS (decoration, kept last on purpose) ═══════════════════ -->
 
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=APorkolab&show_icons=true&hide_border=true&bg_color=0D1117&title_color=C9A227&icon_color=8C1C2F&text_color=EDE3D2" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=APorkolab&layout=compact&langs_count=8&hide_border=true&bg_color=0D1117&title_color=C9A227&text_color=EDE3D2" />
+  <img height="165" src="./profile/stats.svg" alt="GitHub stats" />
+  <img height="165" src="./profile/top-langs.svg" alt="Top languages" />
 </p>
 
 <p align="center">
