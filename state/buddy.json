@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "name": "Bot Buddy",
+  "mood": "idle",
+  "action": null,
+  "energy": 80,
+  "lastActionAt": null,
+  "lastActivity": null,
+  "totalInteractions": 0,
+  "lastUpdatedAt": null,
+  "build": {
+    "status": "unknown",
+    "updatedAt": null,
+    "repo": "aporkolab/aporkolab.github.io"
+  },
+  "processedIssues": {},
+  "actorCooldowns": {}
+}

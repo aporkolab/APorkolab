@@ -1,0 +1,70 @@
+name: Bot Buddy
+
+on:
+  issues:
+    types: [opened]
+  schedule:
+    - cron: '23 7 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/buddy.yml'
+      - 'scripts/buddy*.mjs'
+      - 'scripts/buddy-publish.sh'
+      - 'scripts/render-buddy.mjs'
+
+permissions: {}
+
+# All events share one queue: state updates and issue receipts must not race.
+concurrency:
+  group: bot-buddy-profile
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  update:
+    if: >-
+      github.event_name != 'issues' ||
+      (github.event.action == 'opened' &&
+       github.event.issue.user.type == 'User' &&
+       contains(fromJSON('["[buddy] coffee","[buddy] debug","[buddy] nap"]'), github.event.issue.title))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      close_issue: ${{ steps.buddy.outputs.close_issue }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 1
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - name: Regenerate and publish Buddy against the latest main
+        id: buddy
+        run: bash scripts/buddy-publish.sh
+
+  close-command:
+    needs: update
+    if: needs.update.outputs.close_issue != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - name: Close only the validated, persisted command issue
+        env:
+          BUDDY_ISSUE_NUMBER: ${{ needs.update.outputs.close_issue }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/buddy.mjs close

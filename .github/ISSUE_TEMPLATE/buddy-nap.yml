@@ -1,0 +1,17 @@
+name: Let Bot Buddy nap
+description: Give the profile robot a well-earned rest.
+title: '[buddy] nap'
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Let Bot Buddy nap. Keep the exact title so the robot can recognize it.
+        Each visitor can perform one interaction every 15 minutes. Valid commands are closed automatically; repeated requests during cooldown have no effect.
+        Your public GitHub username and this issue number become part of the public interaction record.
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Let Bot Buddy nap
+      options:
+        - label: Let Bot Buddy nap.
+          required: true
