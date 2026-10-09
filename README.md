@@ -17,6 +17,7 @@ At **Számlázz.hu**, I'm an **AI Champion** in two areas: **agentic development
 | :--- | :--- |
 | **[Whack-a-Bug ↗](https://aporkolab.github.io/)**<br>45 seconds. Nine holes. Spare the friendly robots.<br>[Source](https://github.com/aporkolab/aporkolab.github.io) · JavaScript / original SVG | **[Break the backend ↗](https://github.com/aporkolab/senior-backend-patterns/blob/main/docs/break-the-backend.md)**<br>Trip a circuit breaker. Follow the recovery. Inspect the dead-letter queue.<br>[Open in Codespaces](https://codespaces.new/aporkolab/senior-backend-patterns) · Java / Kafka |
 | **[Kalliope ↗](https://aporkolab.github.io/Kalliope/)**<br>Give it a Hungarian poem. Ask why a syllable is long.<br>[Source & shared authorship](https://github.com/aporkolab/Kalliope) · Java → browser | **[Truholdem ↗](https://github.com/aporkolab/Truholdem)**<br>Poker, Monte Carlo opponents, WebSockets, and the awkward business of side pots.<br>[Architecture & setup](https://github.com/aporkolab/Truholdem#readme) · Spring / Angular |
+| **[Build Escape ↗](https://github.com/aporkolab/build-escape)**<br>Rescue Bot Buddy from a broken build. Three small terminal puzzles.<br>Node.js · zero runtime dependencies | **[Agent Arena ↗](https://aporkolab.github.io/agent-arena/)**<br>Five broken programs. Two agent workflows. Inspect the patches and actual test logs.<br>[Reproduce the experiment](https://github.com/aporkolab/agent-arena) · Java / TypeScript |
 
 ### How I work with agents
 
@@ -25,6 +26,8 @@ At **Számlázz.hu**, I'm an **AI Champion** in two areas: **agentic development
 A concrete brief. Separate work where it can be independent. Integrate. Review the diff with fresh context. Run the checks. Change direction when the result misses the point.
 
 The Whack-a-Bug case study includes two rejected directions, the correction that mattered, and links to the code and deployment. **[Verse Check](https://github.com/aporkolab/verse-check)** turns the Kalliope engine into a reusable GitHub Action. Yes, a pull-request title can be a hexameter.
+
+**[Agent Arena](https://aporkolab.github.io/agent-arena/)** records a solo implementation and a separate implementation with independent review. The task suite, candidate code and test output are public. It is one recorded experiment, with its measurement limits stated alongside the results.
 
 ### The resident debugger
 
